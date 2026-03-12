@@ -283,7 +283,7 @@
     </div>
     <div class="field">
       <label>1 US Dollar ($) in BDT (৳)</label>
-      <input type="number" id="usdRate" placeholder="e.g. 110">
+      <input type="number" id="usdRate" placeholder="e.g. 120">
     </div>
   </div>
 </div>
@@ -446,6 +446,14 @@
     <div class="card-num">💰</div>
     <div class="card-title">Zakat Al-Fitr <small>(Fitra)</small></div>
   </div>
+  <div class="fitra-boxes" style="grid-template-columns:1fr 1fr; margin-bottom:20px;">
+    <div class="fitra-box" style="padding:10px 18px; display:flex; align-items:center; justify-content:space-between;">
+      <div class="fb-lbl" style="margin-bottom:0;">Minimum per Person for 2026</div><div class="fb-val">110 ৳</div>
+    </div>
+    <div class="fitra-box" style="padding:10px 18px; display:flex; align-items:center; justify-content:space-between;">
+      <div class="fb-lbl" style="margin-bottom:0;">Maximum per Person for 2026</div><div class="fb-val">2,805 ৳</div>
+    </div>
+  </div>
   <div class="g2">
     <div class="field">
       <label>Number of people</label>
@@ -456,11 +464,10 @@
       <input type="number" id="fitraPerPerson" placeholder="e.g. 250 (any amount in between min & max)">
     </div>
   </div>
-  <div class="fitra-boxes">
-    <div class="fitra-box"><div class="fb-lbl">Minimum / Person</div><div class="fb-val">110 ৳</div></div>
-    <div class="fitra-box"><div class="fb-lbl">Maximum / Person</div><div class="fb-val">2,805 ৳</div></div>
-    <div class="fitra-box hi"><div class="fb-lbl">Total Fitra (৳)</div><div class="fb-val" id="fitraTotal">—</div></div>
-    <div class="fitra-box hi"><div class="fb-lbl">Total Fitra (€ / $)</div><div class="fb-val" id="fitraTotalFx">—</div></div>
+  <div style="text-align:center; margin-top:28px;">
+    <div style="font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-bottom:9px;">Total Fitra</div>
+    <div style="font-family:'Lora',serif; font-size:4.2rem; font-weight:700; color:var(--gold-light); text-shadow:0 0 50px rgba(201,168,76,0.28); line-height:1; margin-bottom:7px;" id="fitraTotal">0 ৳</div>
+    <div style="font-size:1.25rem; color:var(--gold-dim);" id="fitraTotalFx">0 € / 0 $</div>
   </div>
 </div>
 
