@@ -55,9 +55,10 @@ Website: [https://www.mydul.me/MyZakat/](https://www.mydul.me/MyZakat/)
 - Jewelry values include **20% deduction for used items** based on scholarly guidance.  
 
 ---
+---
 
 ## 🛠 Developer & License
 
-Developed with ❤️ by **Mydul Islam Rashed**  
-© 2026 Mydul. All rights reserved.
+  Developed by **Mydul Islam Rashed**guidance
+- © 2026 Mydul. All rights reserved
 ---
