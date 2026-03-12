@@ -1,81 +1,63 @@
-# MyZakat — Zakat Calculator
+# 🌙 MyZakat — Zakat Calculator
 
-Calculate your annual Zakat obligation accurately and efficiently.
+[![Website](https://img.shields.io/badge/Website-www.mydul.me/MyZakat-blue)](https://www.mydul.me/MyZakat/)  
+[![License](https://img.shields.io/badge/License-Creative%20Commons-lightgrey)]  
 
-## Overview
-MyZakat is a comprehensive online Zakat calculator that helps Muslims determine their annual Zakat obligations according to traditional Islamic guidelines. It accounts for gold, silver, cash, investments, liabilities, and other zakatable assets, with real-time market rates and currency conversions.
-
-Website: https://www.mydul.me/MyZakat/
+A comprehensive **online Zakat calculator** to help Muslims calculate their annual Zakat obligations accurately, following traditional Islamic guidelines. Supports real-time market rates, currencies, and multiple asset types.
 
 ---
 
-## Features
+## 📝 Overview
 
-1. **Gold & Silver Prices (Live from BAJUS)**
-   - Supports 22K, 21K, and traditional gold & silver rates.
-   - Automatically converts amounts to grams and Vori/Tola units.
-   - Deduction applied for used jewelry (80% of market value).
+**MyZakat** allows you to:
 
-2. **Currency Rates**
-   - Supports BDT, Euro (€), and US Dollar ($).
-   - Real-time currency conversion for Zakat calculation.
+- Calculate your Zakat on **gold, silver, cash, investments, jewelry, and other assets**.  
+- Account for **liabilities** to determine **net zakatable wealth**.  
+- Compute **Zakat al-Fitr (Fitra)** per person with Islamic guidance.  
+- Use **real-time gold, silver, and currency rates** for precise calculation.  
 
-3. **Nisab Threshold & Dates**
-   - Gold Nisab: 87.48 gm (7.5 tola)
-   - Silver Nisab: 612.36 gm (52.5 tola)
-   - Auto-calculates Zakat due date (1 Hijri year after Nisab ownership).
-   - Choose between Gold or Silver Nisab thresholds.
-
-4. **Eligibility Conditions**
-   - Guides users on which assets are zakatable.
-   - Calculates total eligible assets and net wealth.
-
-5. **Jewelry Calculation**
-   - Gold & Silver jewelry entered in Vori.
-   - Values auto-calculated at 80% market value.
-   - Supports 22K, 21K, and traditional types.
-
-6. **Assets & Liabilities**
-   - Assets: Cash, bank deposits, investments, cryptocurrencies, livestock for business, gold/silver holdings.
-   - Liabilities: Loans, installments, bills, mahrana arrears, or custom liabilities.
-   - Calculates net Zakatable wealth.
-
-7. **Zakat & Fitra Calculation**
-   - Calculates annual Zakat at 2.5% of net zakatable wealth.
-   - Computes Zakat al-Fitr (Fitra) per person, with minimum and maximum guidance.
+Website: [https://www.mydul.me/MyZakat/](https://www.mydul.me/MyZakat/)
 
 ---
 
-## How to Use
+## ✨ Features
 
-1. Enter **current gold & silver prices** (BDT per gram) from BAJUS.
-2. Enter **currency exchange rates** if you hold foreign currency assets.
-3. Fill in **your jewelry, assets, and liabilities** in BDT.
-4. The calculator will display:
-   - Total eligible assets
-   - Total liabilities
-   - Net Zakatable wealth
-   - Zakat due (BDT, € or $)
-   - Zakat al-Fitr per person
-
----
-
-## Notes
-- If only one type of nisab threshold is exceeded for a year, Zakat is obligatory on all zakatable assets.
-- Silver Nisab is often preferred by scholars as it allows more people to give Zakat.
-- Jewelry values already include the standard 20% deduction for used items.
+| Feature | Description |
+|---------|-------------|
+| **Gold & Silver Prices** | Live rates from BAJUS. Supports 22K, 21K, and traditional metals. Converts to grams & Vori/Tola units. |
+| **Currency Rates** | Supports BDT, Euro (€), USD ($). Real-time conversion for accurate Zakat calculation. |
+| **Nisab Threshold & Dates** | Gold Nisab: 87.48 gm (7.5 tola), Silver Nisab: 612.36 gm (52.5 tola). Auto-calculates Zakat due date. |
+| **Eligibility Guidance** | Helps identify which assets are zakatable. Calculates total eligible assets and net wealth. |
+| **Jewelry Calculation** | Calculates gold & silver jewelry at 80% market value (used deduction). Supports all types. |
+| **Assets & Liabilities** | Include cash, bank deposits, investments, crypto, livestock, gold/silver holdings. Deduct liabilities to calculate net Zakatable wealth. |
+| **Zakat & Fitra Calculator** | Computes annual Zakat (2.5%) and Zakat al-Fitr with min/max guidance per person. |
 
 ---
 
-## Developer & License
-Developed by **Mydul Islam Rashed**  
-© 2026 Mydul. All rights reserved.  
+## 🚀 How to Use
 
-بارك الله فيك — Barakallāhu fīk  
-Please keep me in your prayers.
+1. Enter **current gold & silver prices** (BDT per gram) from BAJUS.  
+2. Enter **currency exchange rates** if applicable.  
+3. Fill in **jewelry, assets, and liabilities** in BDT.  
+4. The calculator displays:  
+   - Total eligible assets  
+   - Total liabilities  
+   - Net Zakatable wealth  
+   - Zakat due (BDT, €, $)  
+   - Zakat al-Fitr per person  
 
 ---
 
-## Contact
-- Website: https://www.mydul.me/MyZakat/
-- GitHub: https://github.com/mydul/MyZakat
+## 📌 Notes & Guidance
+
+- Zakat becomes obligatory if **either Gold or Silver Nisab** is exceeded for a full year.  
+- Scholars often prefer the **Silver Nisab**, making Zakat accessible to more people.  
+- Jewelry values include **20% deduction for used items** based on scholarly guidance.  
+
+---
+
+## 🛠 Developer & License
+
+Developed with ❤️ by **Mydul Islam Rashed**  
+© 2026 Mydul. All rights reserved.
+---
