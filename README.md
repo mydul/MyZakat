@@ -59,6 +59,7 @@ Website: [https://www.mydul.me/MyZakat/](https://www.mydul.me/MyZakat/)
 
 ## 🛠 Developer & License
 
-  Developed by **Mydul Islam Rashed**guidance
-  © 2026 Mydul. All rights reserved
+Developed by **Mydul Islam Rashed**.
+© 2026 Mydul. All rights reserved.
+
 ---
