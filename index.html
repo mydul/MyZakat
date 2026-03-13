@@ -684,8 +684,9 @@ function recalc() {
     totLiab += parseFloat(inp.value) || 0;
   });
 
-  const net   = Math.max(0, totAssets - totLiab);
-  const zakat = net * ZAKAT_PCT;
+  const net        = Math.max(0, totAssets - totLiab);
+  const silverNisab = SIL_NIS * S22;
+  const zakat      = (silverNisab > 0 && net > silverNisab) ? net * ZAKAT_PCT : 0;
   const eur   = v('euroRate') || 1;
   const usd   = v('usdRate')  || 1;
 
