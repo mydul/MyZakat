@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyZakat</title>
+<link rel="icon" href="logo2.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C46B;
+    --gold-dim: #8A6F2E;
+    --gold-faint: rgba(201,168,76,0.07);
+    --dark: #0A0E14;
+    --dark-2: #111620;
+    --dark-3: #181E2A;
+    --dark-4: #1E2535;
+    --dark-5: #242C3D;
+    --border: rgba(201,168,76,0.14);
+    --border-strong: rgba(201,168,76,0.38);
+    --text: #E8E2D4;
+    --text-dim: #8A8270;
+    --text-muted: #55504A;
+    --green: #3DBE7A;
+    --green-bg: rgba(61,190,122,0.07);
+    --red: #E05A52;
+    --red-bg: rgba(224,90,82,0.07);
+    --radius: 14px;
+    --radius-sm: 9px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    min-height: 100vh;
+    line-height: 1.65;
+    background-image: radial-gradient(ellipse 100% 40% at 50% 0%, rgba(201,168,76,0.055) 0%, transparent 65%);
+  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--dark-2); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+  .container { max-width: 940px; margin: 0 auto; padding: 0 24px 120px; }
+
+  /* HEADER */
+  header { text-align: center; padding: 64px 0 52px; }
+  .hdr-khatim { font-size: 1.6rem; color: var(--gold-dim); opacity: 0.45; letter-spacing: 0.5em; margin-bottom: 14px; }
+  .hdr-arabic { font-family: 'Amiri', serif; font-size: 5.2rem; color: var(--gold); line-height: 1; margin-bottom: 10px; text-shadow: 0 2px 50px rgba(201,168,76,0.22); }
+  .hdr-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-dim); letter-spacing: 0.35em; text-transform: uppercase; font-weight: 500; }
+  .hdr-rule { display: flex; align-items: center; gap: 16px; max-width: 280px; margin: 22px auto 14px; }
+  .hdr-rule::before { content:''; flex:1; height:1px; background: linear-gradient(90deg, transparent, var(--gold-dim)); }
+  .hdr-rule::after  { content:''; flex:1; height:1px; background: linear-gradient(270deg, transparent, var(--gold-dim)); }
+  .hdr-gem { color: var(--gold); font-size: 0.65rem; }
+  .hdr-caption { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* CARDS */
+  .card {
+    background: var(--dark-2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 30px 32px 32px;
+    margin-bottom: 16px; transition: border-color 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .card::after { content:''; position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent 10%, rgba(201,168,76,0.28) 50%, transparent 90%); }
+  .card:hover { border-color: var(--border-strong); box-shadow: 0 6px 40px rgba(0,0,0,0.28); }
+  .card-hdr { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .card-num { width: 40px; height: 34px; border: 1px solid var(--gold-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 600; color: var(--gold); background: rgba(201,168,76,0.05); flex-shrink: 0; font-family: 'Lora', serif; }
+  .card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
+  .card-title small { font-family: 'Inter', sans-serif; font-size: 0.76rem; color: var(--text-dim); font-weight: 400; margin-left: 8px; letter-spacing: 0; }
+
+  /* BAJUS BUTTON */
+  .bajus-btn {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(201,168,76,0.1); border: 1px solid var(--border-strong);
+    color: var(--gold); border-radius: 8px; padding: 7px 14px;
+    font-size: 0.78rem; font-weight: 600; text-decoration: none; letter-spacing: 0.04em;
+    transition: background 0.18s, color 0.18s, border-color 0.18s; white-space: nowrap; flex-shrink: 0;
+  }
+  .bajus-btn:hover { background: rgba(201,168,76,0.2); color: var(--gold-light); border-color: var(--gold); }
+
+  /* SECTION LABEL */
+  .sec-lbl { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+
+  /* GRIDS */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  @media(max-width:650px) { .g2,.g3 { grid-template-columns: 1fr; } .hide-mobile { display: none; } }
+
+  /* FORM FIELDS */
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label { font-size: 0.73rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0.07em; text-transform: uppercase; }
+  input[type="number"], input[type="text"] {
+    background: var(--dark-3); border: 1px solid rgba(201,168,76,0.11);
+    border-radius: var(--radius-sm); color: var(--text); font-family: 'Inter', sans-serif;
+    font-size: 1rem; padding: 11px 16px; width: 100%;
+    transition: border-color 0.18s, background 0.18s, box-shadow 0.18s; -moz-appearance: textfield;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+  input:focus { outline: none; border-color: var(--gold-dim); background: var(--dark-4); box-shadow: 0 0 0 3px rgba(201,168,76,0.07); }
+  input::placeholder { color: var(--text-muted); }
+  .field-note { font-size: 0.75rem; color: var(--gold-dim); margin-top: 3px; }
+
+  /* NISAB BADGES */
+  .nisab-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+  .nisab-badge { flex:1; min-width:180px; background: var(--dark-3); border:1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 18px; }
+  .nb-lbl { font-size: 0.71rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
+  .nb-val { font-family: 'Lora', serif; font-size: 1.65rem; color: var(--gold); font-weight: 600; line-height: 1.1; letter-spacing: 0.01em; }
+
+  /* ELIGIBILITY */
+  .elig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:530px) { .elig-grid { grid-template-columns: 1fr; } }
+  .elig-item { display: flex; align-items: center; gap: 12px; background: var(--dark-3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 13px 16px; cursor: pointer; user-select: none; transition: border-color 0.18s, background 0.18s; }
+  .elig-item:hover { border-color: var(--border-strong); }
+  .elig-item.is-no { border-color: rgba(224,90,82,0.28); background: var(--red-bg); }
+  .elig-icon { font-size: 1.05rem; flex-shrink:0; }
+  .elig-text { flex:1; color: var(--text); font-size: 0.9rem; }
+  .elig-badge { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0; transition: background 0.18s, color 0.18s; }
+  .elig-badge.yes { background: rgba(61,190,122,0.14); color: var(--green); }
+  .elig-badge.no  { background: rgba(224,90,82,0.14);  color: var(--red); }
+
+  /* JEWELLERY TABLE */
+  .jewel-sub { margin-bottom: 26px; }
+  .jewel-sub:last-child { margin-bottom: 0; }
+  .jewel-sub-title { font-size: 0.71rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.13em; color: var(--gold-dim); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .jewel-sub-title::after { content:''; flex:1; height:1px; background: var(--border); }
+  .jewel-tbl { width: 100%; border-collapse: collapse; }
+  .jewel-tbl th { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 0 8px 10px; text-align: right; }
+  .jewel-tbl th:first-child { text-align: left; }
+  .jewel-tbl td { padding: 8px 8px; border-bottom: 1px solid rgba(201,168,76,0.05); vertical-align: middle; }
+  .jewel-tbl tr:last-child td { border-bottom: none; }
+  .jewel-tbl td.jt-label { font-size: 0.92rem; color: var(--text); }
+  .jewel-tbl td.jt-stat { font-size: 0.82rem; color: var(--text-dim); text-align: right; }
+  .jewel-tbl td.jt-total { font-size: 0.9rem; color: var(--gold); font-weight: 500; text-align: right; }
+  .jewel-tbl input[type="number"] { background: var(--dark-4); border:1px solid rgba(201,168,76,0.1); border-radius: 7px; font-size: 0.95rem; padding: 8px 12px; text-align: right; width: 100%; min-width: 80px; }
+  .jewel-note { display: flex; align-items: flex-start; gap: 9px; background: rgba(201,168,76,0.03); border: 1px solid var(--border); border-left: 3px solid var(--gold-dim); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 11px 15px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; margin-top: 14px; }
+  .jewel-note-icon { color: var(--gold-dim); flex-shrink: 0; font-style: normal; }
+
+  /* ASSETS / LIABILITIES */
+  .asset-list { display: flex; flex-direction: column; gap: 7px; }
+  .asset-entry { display: grid; grid-template-columns: 1fr 160px 28px; gap: 12px; align-items: center; }
+  @media(max-width:600px) { .asset-entry { grid-template-columns: 1fr 110px 24px; } }
+  .ae-label { font-size: 0.9rem; color: var(--text); }
+  .ae-del { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; padding: 4px; border-radius: 4px; transition: color 0.15s, background 0.15s; }
+  .ae-del:hover { color: var(--red); background: var(--red-bg); }
+  .sub-divider { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.13em; color: var(--gold-dim); margin: 18px 0 14px; display: flex; align-items: center; gap: 10px; }
+  .sub-divider::after { content:''; flex:1; height:1px; background: var(--border); }
+  .add-btn { display: flex; align-items: center; gap: 8px; background: none; border: 1px dashed rgba(201,168,76,0.18); color: var(--text-dim); border-radius: var(--radius-sm); padding: 10px 16px; width: 100%; font-size: 0.86rem; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 10px; transition: border-color 0.18s, color 0.18s, background 0.18s; }
+  .add-btn:hover { border-color: var(--gold-dim); color: var(--gold); background: var(--gold-faint); }
+
+  /* NOTE BOX */
+  .note-box { display: flex; align-items: flex-start; gap: 9px; font-size: 0.8rem; color: var(--text-muted); background: rgba(201,168,76,0.03); border: 1px solid var(--border); border-left: 3px solid var(--gold-dim); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 11px 15px; margin-top: 18px; line-height: 1.55; }
+
+  /* FITRA */
+  .fitra-boxes { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 20px; }
+  @media(max-width:600px) { .fitra-boxes { grid-template-columns: 1fr 1fr; } }
+  .fitra-box { background: var(--dark-3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; text-align: center; }
+  .fitra-box.hi { border-color: var(--border-strong); }
+  .fb-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; }
+  .fb-val { font-family: 'Lora', serif; font-size: 1.5rem; color: var(--gold); font-weight: 600; }
+
+  /* RESULT */
+  .result-card { background: var(--dark-2); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 36px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .result-card::before { content:''; position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.07), transparent); }
+  .status-banner { border-radius: 10px; padding: 14px 18px; font-size: 0.9rem; margin-bottom: 28px; display: flex; align-items: center; gap: 12px; font-weight: 500; }
+  .status-banner.eligible   { background: var(--green-bg); border:1px solid rgba(61,190,122,0.22); color: var(--green); }
+  .status-banner.ineligible { background: var(--red-bg);   border:1px solid rgba(224,90,82,0.22);  color: var(--red); }
+  .status-banner.neutral    { background: var(--dark-3);   border:1px solid var(--border);          color: var(--text-dim); }
+  .result-center { text-align: center; margin-bottom: 28px; }
+  .result-eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 9px; }
+  .result-amount { font-family: 'Lora', serif; font-size: 4.2rem; font-weight: 700; color: var(--gold-light); text-shadow: 0 0 50px rgba(201,168,76,0.28); line-height: 1; margin-bottom: 7px; }
+  .result-eur { font-size: 1.25rem; color: var(--gold-dim); }
+  .result-rows { border-top: 1px solid var(--border); }
+  .rrow { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(201,168,76,0.05); font-size: 0.92rem; }
+  .rrow:last-child { border-bottom: none; }
+  .rrow .rl { color: var(--text-dim); }
+  .rrow .rv { font-weight: 500; color: var(--text); }
+  .rrow.hi .rl { color: var(--text); font-weight: 600; font-size: 0.97rem; }
+  .rrow.hi .rv { color: var(--gold); font-size: 1.08rem; }
+
+  /* TRACK RECORD */
+  .track-wrap { overflow-x: auto; }
+  table.track { width:100%; border-collapse: collapse; font-size: 0.86rem; min-width: 720px; }
+  table.track th { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.68rem; font-weight: 600; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  table.track td { padding: 11px 14px; border-bottom: 1px solid rgba(201,168,76,0.04); vertical-align: middle; }
+  table.track tr:last-child td { border-bottom: none; }
+  table.track input[type="text"], table.track input[type="number"] { background:none; border:none; color:var(--text); font-size:0.86rem; padding:2px 0; width:100%; border-bottom:1px solid transparent; border-radius:0; }
+  table.track input:focus { border-bottom-color:var(--gold-dim); box-shadow:none; background:none; outline:none; }
+  table.track select { background:var(--dark-4); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:4px 8px; font-size:0.8rem; font-family:'Inter',sans-serif; }
+  .track-add { display:flex; align-items:center; gap:8px; background:none; border:1px dashed rgba(201,168,76,0.18); color:var(--text-dim); border-radius:var(--radius-sm); padding:11px 18px; width:100%; font-size:0.88rem; font-family:'Inter',sans-serif; cursor:pointer; margin-top:14px; transition:border-color 0.18s,color 0.18s,background 0.18s; }
+  .track-add:hover { border-color:var(--gold-dim); color:var(--gold); background:var(--gold-faint); }
+
+  /* RESET BUTTON */
+  .reset-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 100;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--dark-3); border: 1px solid var(--border-strong);
+    color: var(--text-dim); border-radius: 50px; padding: 10px 20px;
+    font-size: 0.82rem; font-weight: 500; font-family: 'Inter', sans-serif;
+    cursor: pointer; letter-spacing: 0.04em;
+    transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .reset-btn:hover { background: var(--red-bg); border-color: rgba(224,90,82,0.4); color: var(--red); box-shadow: 0 4px 24px rgba(224,90,82,0.15); }
+
+  /* FOOTER */
+  footer { text-align:center; font-size:0.8rem; color:var(--text-muted); padding:40px 0 20px; border-top:1px solid var(--border); margin-top:40px; }
+  footer .f-prayer { font-family:'Amiri',serif; font-size:1.2rem; color:var(--gold-dim); margin-bottom:7px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<header>
+  <div class="hdr-khatim">✦ ✦ ✦</div>
+  <div class="hdr-arabic">زكاة</div>
+  <div class="hdr-sub">Zakat Calculator</div>
+  <div class="hdr-rule"><span class="hdr-gem">◆</span></div>
+  <div class="hdr-caption">Calculate your annual Zakat obligation with precision</div>
+</header>
+
+<!-- 0.1 · PRICES -->
+<div class="card" id="pricesCard" style="display:none">
+  <div class="card-hdr">
+    <div class="card-num">1</div>
+    <div class="card-title">Gold &amp; Silver Prices</div>
+    <a href="https://www.bajus.org/gold-price" target="_blank" rel="noopener" class="bajus-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      BAJUS Live Prices
+    </a>
+  </div>
+  <div class="sec-lbl">Gold — BDT per gram</div>
+  <div class="g3" style="margin-bottom:24px">
+    <div class="field">
+      <label>24 Karat Gold</label>
+      <input type="number" id="gold24" placeholder="e.g. 24824">
+      <div class="field-note">≈ <span id="gold24vori">—</span> ৳ / vori</div>
+    </div>
+    <div class="field">
+      <label>22 Karat Gold</label>
+      <input type="number" id="gold22" placeholder="e.g. 22755">
+      <div class="field-note">≈ <span id="gold22vori">—</span> ৳ / vori</div>
+    </div>
+    <div class="field">
+      <label>21 Karat Gold</label>
+      <input type="number" id="gold21" placeholder="e.g. 21720">
+      <div class="field-note">≈ <span id="gold21vori">—</span> ৳ / vori</div>
+    </div>
+    <div class="field">
+      <label>Traditional Gold</label>
+      <input type="number" id="goldTrad" placeholder="e.g. 15235">
+      <div class="field-note">≈ <span id="goldTradvori">—</span> ৳ / vori</div>
+    </div>
+  </div>
+  <div class="sec-lbl">Silver — BDT per gram</div>
+  <div class="g3">
+    <div class="field">
+      <label>24 Karat Silver</label>
+      <input type="number" id="silver24" placeholder="e.g. 643">
+      <div class="field-note">≈ <span id="silver24vori">—</span> ৳ / vori</div>
+    </div>
+    <div class="field">
+      <label>22 Karat Silver</label>
+      <input type="number" id="silver22" placeholder="e.g. 590">
+      <div class="field-note">≈ <span id="silver22vori">—</span> ৳ / vori</div>
+    </div>
+    <div class="field">
+      <label>21 Karat Silver</label>
+      <input type="number" id="silver21" placeholder="e.g. 560">
+      <div class="field-note">≈ <span id="silver21vori">—</span> ৳ / vori</div>
+    </div>
+    <div class="field">
+      <label>Traditional Silver</label>
+      <input type="number" id="silverTrad" placeholder="e.g. 360">
+      <div class="field-note">≈ <span id="silverTradvori">—</span> ৳ / vori</div>
+    </div>
+  </div>
+  <div class="note-box">Please enter current updated market prices from BAJUS Website</div>
+  <div class="note-box">1 vori = 11.664 gm &nbsp;|&nbsp; 1 tola = 1 vori &nbsp;|&nbsp; 16 ana = 1 vori &nbsp;|&nbsp; 6 roti = 1 ana</div>
+</div>
+
+<!-- 0.2 · CURRENCY RATES -->
+<div class="card" id="ratesCard" style="display:none">
+  <div class="card-hdr">
+    <div class="card-num">2</div>
+    <div class="card-title">Currency Rates</div>
+  </div>
+  <div class="g2">
+    <div class="field">
+      <label>1 Euro (€) in BDT (৳)</label>
+      <input type="number" id="euroRate" placeholder="e.g. 142">
+    </div>
+    <div class="field">
+      <label>1 US Dollar ($) in BDT (৳)</label>
+      <input type="number" id="usdRate" placeholder="e.g. 120">
+    </div>
+  </div>
+</div>
+
+<!-- 1 · NISAB -->
+<div class="card">
+  <div class="card-hdr">
+    <div class="card-num">1</div>
+    <div class="card-title">Nisab Threshold</div>
+  </div>
+  <div class="nisab-row">
+    <div class="nisab-badge">
+      <div class="nb-lbl">Gold Nisab — 87.48 gm (7.5 tola)</div>
+      <div class="nb-val" id="nisabGold">—</div>
+    </div>
+    <div class="nisab-badge">
+      <div class="nb-lbl">Silver Nisab — 612.36 gm (52.5 tola)</div>
+      <div class="nb-val" id="nisabSilver">—</div>
+    </div>
+  </div>
+
+  <div class="g2" style="display:none">
+    <div class="field">
+      <label>Nisab Owned Since</label>
+      <input type="text" id="nisabDate" placeholder="e.g. 8 Ramadan 1446">
+    </div>
+    <div class="field">
+      <label>Zakat Due Date (1 Hijri year later)</label>
+      <input type="text" id="zakatDueDate" placeholder="Auto-filled">
+    </div>
+  </div>
+  <div class="note-box">
+    The<b>Nisab Threshold</b>is automatically calculated using current real-time international gold and silver market prices.
+  </div>
+  <div class="note-box">
+    Between the Gold Nisab or Silver Nisab threshold, many scholars prefer the Silver Nisab for Zakat. Because it allows more people to give Zakat and better supports those in need. Therefore, in our calculation, we have used the Silver Nisab threshold by default.
+  </div>
+  <div class="note-box">
+    It is not the case that your all types of assets need to exceed 1 year separately. Rather, if only the nisab amount exceeds 1 lunar year, zakat becomes obligatory on all zakatable assets after deducting your liabilities. So, now it's time to calculate zakat precisely.
+  </div>
+</div>
+
+<!-- 2 · ELIGIBILITY -->
+<div class="card">
+  <div class="card-hdr">
+    <div class="card-num">2</div>
+    <div class="card-title">Eligibility Conditions <small>Click to toggle</small></div>
+  </div>
+  <div class="elig-grid" id="eligGrid"></div>
+</div>
+
+<!-- 3 · JEWELLERY -->
+<div class="card">
+  <div class="card-hdr">
+    <div class="card-num">3</div>
+    <div class="card-title">Jewellery</div>
+  </div>
+
+  <div class="jewel-sub">
+    <div class="jewel-sub-title">Gold Jewellery</div>
+    <table class="jewel-tbl">
+      <thead><tr>
+        <th style="text-align:left;width:35%">Type</th>
+        <th style="width:18%">Vori</th>
+        <th class="hide-mobile" style="width:18%">Grams</th>
+        <th style="width:22%">Value (৳) at 80%</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="jt-label">24K Gold</td>
+          <td><input type="number" id="j_gold24_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_gold24_g">—</td>
+          <td class="jt-total" id="j_gold24_t">—</td>
+        </tr>
+        <tr>
+          <td class="jt-label">22K Gold</td>
+          <td><input type="number" id="j_gold22_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_gold22_g">—</td>
+          <td class="jt-total" id="j_gold22_t">—</td>
+        </tr>
+        <tr>
+          <td class="jt-label">21K Gold</td>
+          <td><input type="number" id="j_gold21_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_gold21_g">—</td>
+          <td class="jt-total" id="j_gold21_t">—</td>
+        </tr>
+        <tr>
+          <td class="jt-label">Traditional Gold</td>
+          <td><input type="number" id="j_goldT_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_goldT_g">—</td>
+          <td class="jt-total" id="j_goldT_t">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="jewel-sub">
+    <div class="jewel-sub-title">Silver Jewellery</div>
+    <table class="jewel-tbl">
+      <thead><tr>
+        <th style="text-align:left;width:35%">Type</th>
+        <th style="width:18%">Vori</th>
+        <th class="hide-mobile" style="width:18%">Grams</th>
+        <th style="width:22%">Value (৳) at 80%</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="jt-label">24K Silver</td>
+          <td><input type="number" id="j_sil24_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_sil24_g">—</td>
+          <td class="jt-total" id="j_sil24_t">—</td>
+        </tr>
+        <tr>
+          <td class="jt-label">22K Silver</td>
+          <td><input type="number" id="j_sil22_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_sil22_g">—</td>
+          <td class="jt-total" id="j_sil22_t">—</td>
+        </tr>
+        <tr>
+          <td class="jt-label">21K Silver</td>
+          <td><input type="number" id="j_sil21_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_sil21_g">—</td>
+          <td class="jt-total" id="j_sil21_t">—</td>
+        </tr>
+        <tr>
+          <td class="jt-label">Traditional Silver</td>
+          <td><input type="number" id="j_silT_v" placeholder="0"></td>
+          <td class="jt-stat hide-mobile" id="j_silT_g">—</td>
+          <td class="jt-total" id="j_silT_t">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="jewel-note">
+    <i class="jewel-note-icon"></i>
+    <div id="priceInfo" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0px; line-height:2;">
+    <span style="color:var(--gold-dim)">Gold price used —  </span>
+    24K Gold: <span id="inf_g24">—</span> &nbsp;|&nbsp;
+    22K Gold: <span id="inf_g22">—</span> &nbsp;|&nbsp;
+    21K Gold: <span id="inf_g21">—</span> &nbsp;|&nbsp;
+    Traditional Gold: <span id="inf_gT">—</span></br>
+    <span style="color:var(--gold-dim)">Silver price used — </span>
+    24K Silver: <span id="inf_s24">—</span> &nbsp;|&nbsp;
+    22K Silver: <span id="inf_s22">—</span> &nbsp;|&nbsp;
+    21K Silver: <span id="inf_s21">—</span> &nbsp;|&nbsp;
+    Traditional Silver: <span id="inf_sT">—</span></b>
+    </div>
+  </div>
+  <div class="jewel-note">
+    <i class="jewel-note-icon"></i>
+    <b>Common Conversions:</b>1 Vori = 11.664 gm &nbsp;|&nbsp; 1 Tola = 1 Vori &nbsp;|&nbsp; 16 Aana = 1 Vori &nbsp;|&nbsp; 6 Totti = 1 Aana
+  </div>
+  <div class="jewel-note">
+    <i class="jewel-note-icon"></i>
+    Jewellery is calculated with 80% of the current market value (20% deduction for used jewellery based on common scholarly guidance). This means here only 80% of your jewellery value is included in this Zakat calculation after the 20% of deduction.
+  </div>
+</div>
+
+<!-- 4 · ASSETS & LIABILITIES -->
+<div class="card">
+  <div class="card-hdr">
+    <div class="card-num">4</div>
+    <div class="card-title">Assets &amp; Liabilities</div>
+  </div>
+  <div class="sub-divider">Assets (BDT ৳)</div>
+  <div class="asset-list" id="assetRows"></div>
+  <button class="add-btn" onclick="addCustomEntry('assetRows','a_cx')">＋ Add custom asset (if required)</button>
+  <div class="sub-divider" style="margin-top:26px">Liabilities (BDT ৳)</div>
+  <div class="asset-list" id="liabilityRows"></div>
+  <button class="add-btn" onclick="addCustomEntry('liabilityRows','l_cx')">＋ Add custom liability (if required)</button>
+</div>
+
+<!-- RESULT -->
+<div class="result-card">
+  <div id="statusBanner" class="status-banner neutral">
+    <span>⏳</span><span>Fill in your assets above to calculate your Zakat.</span>
+  </div>
+  <div class="result-center">
+    <div class="result-eyebrow">Final Zakat Amount Due</div>
+    <div class="result-amount" id="zakatFinal">0 ৳</div>
+    <div class="result-eur" id="zakatFinalFx">0 € / 0 $</div>
+  </div>
+  <div id="fxInfo" style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; margin-bottom:14px; text-align:center;">
+    <span style="color:var(--gold-dim)">Rates used:</span>
+    1 € = <span id="inf_eur">—</span> ৳ &nbsp;|&nbsp; 1 $ = <span id="inf_usd">—</span> ৳
+  </div>
+  <div class="result-rows">
+    <div class="rrow"><span class="rl">Total Eligible Assets</span><span class="rv" id="rTotalAssets">0 ৳</span></div>
+    <div class="rrow"><span class="rl">Total Liabilities</span><span class="rv" id="rTotalLiab">0 ৳</span></div>
+    <div class="rrow"><span class="rl">Net Zakatable Wealth</span><span class="rv" id="rNet">0 ৳</span></div>
+    <div class="rrow hi"><span class="rl">Zakat (2.5%)</span><span class="rv" id="rZakat">0 ৳</span></div>
+  </div>
+
+</div>
+
+<!-- FITRA -->
+<div class="card">
+  <div class="card-hdr">
+    <div class="card-num">💰</div>
+    <div class="card-title">Zakat Al-Fitr <small>(Fitra)</small></div>
+  </div>
+  <div class="fitra-boxes" style="grid-template-columns:1fr 1fr; margin-bottom:20px;">
+    <div class="fitra-box" style="padding:10px 18px; display:flex; align-items:center; justify-content:space-between;">
+      <div class="fb-lbl" style="margin-bottom:0;">Minimum per Person for 2026</div><div class="fb-val">110 ৳</div>
+    </div>
+    <div class="fitra-box" style="padding:10px 18px; display:flex; align-items:center; justify-content:space-between;">
+      <div class="fb-lbl" style="margin-bottom:0;">Maximum per Person for 2026</div><div class="fb-val">2,805 ৳</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="field">
+      <label>Number of people</label>
+      <input type="number" id="fitraPeople" placeholder="e.g. 4">
+    </div>
+    <div class="field">
+      <label>Your Desired Amount per person (৳)</label>
+      <input type="number" id="fitraPerPerson" placeholder="e.g. 250 (any amount in between min & max)">
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:28px;">
+    <div style="font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-bottom:9px;">Total Fitra</div>
+    <div style="font-family:'Lora',serif; font-size:4.2rem; font-weight:700; color:var(--gold-light); text-shadow:0 0 50px rgba(201,168,76,0.28); line-height:1; margin-bottom:7px;" id="fitraTotal">0 ৳</div>
+    <div style="font-size:1.25rem; color:var(--gold-dim);" id="fitraTotalFx">0 € / 0 $</div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-prayer">بارك الله فيك — Barakallāhu fīk </div>
+  <p style="text-align: center; padding: 1px 0;">
+  &copy; 2026 Mydul. All rights reserved. <br>
+  <span style="font-style: italic;">Developed by <a href="https://www.facebook.com/mydul.me/" style="color: inherit; text-decoration: none;">Mydul Islam Rashed</a> — please keep me in your prayers.</span>
+  </p>
+</footer>
+</div>
+
+<!-- Scroll to Top Button -->
+<button class="reset-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="bottom:120px;">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+  Top
+</button>
+
+<!-- Scroll to Bottom Button -->
+<button class="reset-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" style="bottom:80px;">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+  Bottom
+</button>
+
+<!-- Floating Reset Button -->
+<button class="reset-btn" onclick="confirmReset()" style="bottom:40px;">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="1 4 1 10 7 10"/>
+    <path d="M3.51 15a9 9 0 1 0 .49-3.5"/>
+  </svg>
+  Reset All
+</button>
+
+<script>
+/* ── Constants ─────────────────────────────────────────── */
+const VORI_GM   = 11.664;
+const GOLD_NIS  = 87.48;
+const SIL_NIS   = 612.36;
+const ZAKAT_PCT = 0.025;
+const JEWEL_DED = 0.80;
+
+/* ── Helpers ───────────────────────────────────────────── */
+const $   = id => document.getElementById(id);
+const v   = id => parseFloat($(id)?.value) || 0;
+const set = (id, t) => { const e = $(id); if (e) e.textContent = t; };
+const fmt = n => Math.round(n).toLocaleString('en-BD') + ' ৳';
+
+/* ── Wire inputs: clear-on-focus + trigger recalc ──────── */
+function wire(inp) {
+  if (inp._wired) return;
+  inp._wired = true;
+  inp.addEventListener('focus', function () {
+    if (this.value === '0') this.value = '';
+    this.select();
+  });
+  inp.addEventListener('blur', function () {
+    if (this.value.trim() === '') this.value = '';
+  });
+  inp.addEventListener('input', recalc);
+}
+
+function wireAll() {
+  document.querySelectorAll('input[type="number"]').forEach(wire);
+}
+
+/* ── Auto-fetch gold, silver & currency (fawazahmed0 CDN — free, no key) ── */
+function seedPrices() {} // handled by autoFetchRates
+
+async function autoFetchRates() {
+  const TROY = 31.1035;
+  let usdToBdt = 0, eurToBdt = 0, goldUsdOz = 0, silverUsdOz = 0;
+
+  // Primary: fawazahmed0 — CDN-hosted JSON, no API key, includes XAU/XAG
+  try {
+    const r = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+    const d = await r.json();
+    const u = d.usd;
+    if (u.bdt)              usdToBdt    = u.bdt;
+    if (u.eur && usdToBdt)  eurToBdt    = usdToBdt / u.eur;
+    if (u.xau && u.xau > 0) goldUsdOz   = 1 / u.xau;
+    if (u.xag && u.xag > 0) silverUsdOz = 1 / u.xag;
+  } catch(e) { console.warn('fawazahmed0 failed:', e); }
+
+  // Fallback for currency only — Frankfurter
+  if (!usdToBdt) {
+    try {
+      const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=BDT,EUR');
+      const d = await r.json();
+      if (d.rates?.BDT) usdToBdt = d.rates.BDT;
+      if (d.rates?.EUR) eurToBdt = usdToBdt / d.rates.EUR;
+    } catch(e) { console.warn('Frankfurter fallback failed:', e); }
+  }
+
+  // Apply currency
+  if (usdToBdt > 0) {
+    const eu = Math.round(eurToBdt), ud = Math.round(usdToBdt);
+    const ee=$('euroRate'); if(ee) ee.value=eu;
+    const eu2=$('usdRate'); if(eu2) eu2.value=ud;
+    const ie=$('inf_eur'); if(ie) ie.textContent=eu.toLocaleString();
+    const iu=$('inf_usd'); if(iu) iu.textContent=ud.toLocaleString();
+  }
+
+  // Apply gold
+  if (goldUsdOz > 100 && usdToBdt > 0) {
+    const gpg = (goldUsdOz / TROY) * usdToBdt;
+    const g24=Math.round(gpg), g22=Math.round(gpg*22/24), g21=Math.round(gpg*21/24), gT=Math.round(gpg*0.60);
+    const e24=$('gold24');   if(e24) e24.value=g24;
+    const e22=$('gold22');   if(e22) e22.value=g22;
+    const e21=$('gold21');   if(e21) e21.value=g21;
+    const eT =$('goldTrad'); if(eT)  eT.value =gT;
+    const i24=$('inf_g24'); if(i24) i24.textContent=g24.toLocaleString()+' ৳/gm';
+    const i22=$('inf_g22'); if(i22) i22.textContent=g22.toLocaleString()+' ৳/gm';
+    const i21=$('inf_g21'); if(i21) i21.textContent=g21.toLocaleString()+' ৳/gm';
+    const iT =$('inf_gT');  if(iT)  iT.textContent =gT.toLocaleString() +' ৳/gm';
+  }
+
+  // Apply silver
+  if (silverUsdOz > 0.5 && usdToBdt > 0) {
+    const spg = (silverUsdOz / TROY) * usdToBdt;
+    const s24=Math.round(spg), s22=Math.round(spg*22/24), s21=Math.round(spg*21/24), sT=Math.round(spg*0.60);
+    const f24=$('silver24');   if(f24) f24.value=s24;
+    const f22=$('silver22');   if(f22) f22.value=s22;
+    const f21=$('silver21');   if(f21) f21.value=s21;
+    const fT =$('silverTrad'); if(fT)  fT.value =sT;
+    const j24=$('inf_s24'); if(j24) j24.textContent=s24.toLocaleString()+' ৳/gm';
+    const j22=$('inf_s22'); if(j22) j22.textContent=s22.toLocaleString()+' ৳/gm';
+    const j21=$('inf_s21'); if(j21) j21.textContent=s21.toLocaleString()+' ৳/gm';
+    const jT =$('inf_sT');  if(jT)  jT.textContent =sT.toLocaleString() +' ৳/gm';
+  }
+
+  // If metals failed, show card 1 for manual entry
+  if (goldUsdOz < 100 || silverUsdOz < 0.5) {
+    const pc=$('pricesCard'); if(pc) pc.style.display='';
+    const pi=$('priceInfo');
+    if(pi) pi.innerHTML='<span style="color:#e87e77">⚠ Auto-fetch unavailable — please enter prices manually from <a href="https://www.bajus.org/gold-price" target="_blank" style="color:var(--gold)">BAJUS</a>.</span>';
+  }
+
+  wireAll();
+  recalc();
+}
+
+/* ── Hijri date: auto-fill Zakat Due Date ──────────────── */
+function hijriPlusOneYear(str) {
+  if (!str || !str.trim()) return '';
+  const hijriMatch = str.trim().match(/^(\d+\s+\w+\s+)(\d{3,4})(.*)$/);
+  if (hijriMatch) {
+    return hijriMatch[1] + (parseInt(hijriMatch[2]) + 1) + hijriMatch[3];
+  }
+  const d = new Date(str.trim());
+  if (!isNaN(d.getTime())) {
+    d.setDate(d.getDate() + 354);
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  return '';
+}
+
+function setupNisabWatcher() {
+  const src = $('nisabDate');
+  if (!src) return;
+  src.addEventListener('input', function () {
+    const result = hijriPlusOneYear(this.value);
+    if (result) $('zakatDueDate').value = result;
+  });
+}
+
+/* ── Eligibility ───────────────────────────────────────── */
+const eligItems = [
+  { icon: '🕌', label: '1. Are you a Muslim?' },
+  { icon: '🕊️', label: '2. Are you free (not a slave)?' },
+  { icon: '💰', label: '3. Do you own the Nisab amount?' },
+  { icon: '🤝', label: '4. Do you own all your wealth?' },
+  { icon: '📅', label: '5. Has 1 Hijri year passed since Nisab?' },
+  { icon: '📊', label: '6. Wealth exceeds Nisab after debts?' },
+];
+
+function buildElig() {
+  const g = $('eligGrid');
+  g.innerHTML = '';
+  eligItems.forEach((item, i) => {
+    const d = document.createElement('div');
+    d.className = 'elig-item';
+    d.id = 'ew' + i;
+    d.innerHTML = `
+      <span class="elig-icon">${item.icon}</span>
+      <span class="elig-text">${item.label}</span>
+      <div class="elig-badge yes" id="eb${i}">✓</div>`;
+    d.addEventListener('click', () => toggleElig(i));
+    g.appendChild(d);
+  });
+}
+
+function toggleElig(i) {
+  const b = $('eb' + i), w = $('ew' + i);
+  const wasYes = b.classList.contains('yes');
+  b.classList.toggle('yes', !wasYes);
+  b.classList.toggle('no', wasYes);
+  b.textContent = wasYes ? '✗' : '✓';
+  w.classList.toggle('is-no', wasYes);
+  recalc();
+}
+
+function allElig() {
+  return eligItems.every((_, i) => $('eb' + i)?.classList.contains('yes'));
+}
+
+/* ── Asset / Liability rows ────────────────────────────── */
+const defaultAssets = [
+  ['Cash in hand and in bank accounts',                            'a0'],
+  ['Any type of Deposits, FD, Provident fund, Savings',            'a1'],
+  ['Loans given out to someone (receivable)',                      'a2'],
+  ['Crypto (Bitcoin, Altcoin, Stablecoin, etc.)',                  'a3'],
+  ['Livestock for Business (Cows, Goats, Ducks, Chickens, etc.)',  'a4'],
+  ['Businesses, Investments, Shares, Index fund, ETF, Stocks',     'a5'],
+  ['Current price of pure gold bars / coins, ETC, Digital Gold or Silver', 'a6'],
+];
+const defaultLiabilities = [
+  ['Loans or borrowed money',                        'l0'],
+  ['Installments / goods purchased on credit',       'l1'],
+  ['Taxes, Rent, Utility bills due immediately',     'l2'],
+  ['Unpaid Mahrana arrears of your wife',            'l3'],
+];
+
+function buildDefaults() {
+  buildList('assetRows',     defaultAssets);
+  buildList('liabilityRows', defaultLiabilities);
+}
+
+function buildList(cid, rows) {
+  $(cid).innerHTML = '';
+  rows.forEach(([lbl, id]) => makeEntry($(cid), lbl, id, false));
+}
+
+function makeEntry(container, label, id, deletable) {
+  const row = document.createElement('div');
+  row.className = 'asset-entry';
+  row.id = 'row_' + id;
+  row.innerHTML = `
+    <span class="ae-label">${label}</span>
+    <input type="number" id="${id}" placeholder="0 ৳">
+    ${deletable
+      ? `<button class="ae-del" onclick="delEntry('${id}')" title="Remove">✕</button>`
+      : '<span></span>'}`;
+  container.appendChild(row);
+  wire($(id));
+}
+
+function addCustomEntry(cid, prefix) {
+  const label = prompt('Enter name:');
+  if (!label?.trim()) return;
+  makeEntry($(cid), label.trim(), prefix + '_' + Date.now(), true);
+}
+
+function delEntry(id) {
+  $('row_' + id)?.remove();
+  recalc();
+}
+
+/* ── Main recalc ───────────────────────────────────────── */
+function recalc() {
+  const G24 = v('gold24'),  G22 = v('gold22'),  G21 = v('gold21'),  GT = v('goldTrad');
+  const S24 = v('silver24'),S22 = v('silver22'),S21 = v('silver21'),ST = v('silverTrad');
+
+  const vd = (p, id) => set(id, p > 0 ? Math.round(p * VORI_GM).toLocaleString() : '—');
+  vd(G24, 'gold24vori'); vd(G22, 'gold22vori'); vd(G21, 'gold21vori'); vd(GT, 'goldTradvori');
+  vd(S24, 'silver24vori'); vd(S22, 'silver22vori'); vd(S21, 'silver21vori'); vd(ST, 'silverTradvori');
+
+  set('nisabGold',   G24 > 0 ? fmt(GOLD_NIS * G24) : '—');
+  set('nisabSilver', S24 > 0 ? fmt(SIL_NIS  * S24) : '—');
+
+  const jewPairs = [
+    ['j_gold24', G24], ['j_gold22', G22], ['j_gold21', G21], ['j_goldT', GT],
+    ['j_sil24',  S24], ['j_sil22',  S22], ['j_sil21',  S21], ['j_silT',  ST],
+  ];
+  let jewGold = 0, jewSil = 0;
+  jewPairs.forEach(([pfx, ppm]) => {
+    const vori = v(pfx + '_v');
+    const gm   = vori * VORI_GM;
+    const zkt  = gm * ppm * JEWEL_DED;
+    set(pfx + '_g', vori > 0 ? gm.toFixed(2) + ' gm' : '—');
+    set(pfx + '_t', vori > 0 ? fmt(zkt) : '—');
+    if (pfx.startsWith('j_s')) jewSil  += zkt;
+    else                        jewGold += zkt;
+  });
+
+  let totAssets = jewGold + jewSil;
+  document.querySelectorAll('#assetRows input[type="number"]').forEach(inp => {
+    totAssets += parseFloat(inp.value) || 0;
+  });
+
+  let totLiab = 0;
+  document.querySelectorAll('#liabilityRows input[type="number"]').forEach(inp => {
+    totLiab += parseFloat(inp.value) || 0;
+  });
+
+  const net        = Math.max(0, totAssets - totLiab);
+  const silverNisab = SIL_NIS * S24;
+  const zakat       = (silverNisab > 0 && net > silverNisab) ? net * ZAKAT_PCT : 0;
+  const eur   = v('euroRate') || 1;
+  const usd   = v('usdRate')  || 1;
+
+  const fp = v('fitraPeople'), fpp = v('fitraPerPerson');
+  const ft = fp && fpp ? fp * fpp : 0;
+  set('fitraTotal',   ft > 0 ? fmt(ft) : '—');
+  set('fitraTotalFx', ft > 0 ? (ft / eur).toFixed(0) + ' € / ' + (ft / usd).toFixed(0) + ' $' : '—');
+
+  set('rTotalAssets', fmt(totAssets));
+  set('rTotalLiab',   fmt(totLiab));
+  set('rNet',         fmt(net));
+  set('rZakat',       fmt(zakat));
+  set('zakatFinal',   fmt(zakat));
+  set('zakatFinalFx', (zakat / eur).toFixed(0) + ' € / ' + (zakat / usd).toFixed(0) + ' $');
+
+  const banner = $('statusBanner');
+  if (!allElig()) {
+    banner.className = 'status-banner ineligible';
+    banner.innerHTML = '<span>✗</span><span>One or more eligibility conditions not met. Zakat may not be obligatory.</span>';
+  } else if (zakat > 0) {
+    banner.className = 'status-banner eligible';
+    banner.innerHTML = `<span>✓</span><span>Eligible. Your Zakat is <strong>${fmt(zakat)}</strong> &nbsp;(${(zakat/eur).toFixed(0)} € / ${(zakat/usd).toFixed(0)} $).</span>`;
+  } else {
+    banner.className = 'status-banner neutral';
+    banner.innerHTML = '<span>⏳</span><span>Enter your assets above to calculate your Zakat.</span>';
+  }
+}
+
+/* ── Reset all ─────────────────────────────────────────── */
+function confirmReset() {
+  if (!confirm('Reset all values to a fresh start?\nThis will clear all entered data.')) return;
+  ['gold24','gold22','gold21','goldTrad','silver24','silver22','silver21','silverTrad','euroRate','usdRate'].forEach(id => {
+    const el = $(id); if (el) el.value = '';
+  });
+  ['j_gold24_v','j_gold22_v','j_gold21_v','j_goldT_v','j_sil24_v','j_sil22_v','j_sil21_v','j_silT_v'].forEach(id => {
+    const el = $(id); if (el) el.value = '';
+  });
+  ['nisabDate','zakatDueDate'].forEach(id => { const el = $(id); if (el) el.value = ''; });
+  ['fitraPeople','fitraPerPerson'].forEach(id => { const el = $(id); if (el) el.value = ''; });
+  buildDefaults();
+  eligItems.forEach((_, i) => {
+    const b = $('eb' + i), w = $('ew' + i);
+    b.classList.remove('no'); b.classList.add('yes'); b.textContent = '✓';
+    w.classList.remove('is-no');
+  });
+  seedPrices();
+  wireAll();
+  autoFetchRates();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Init ──────────────────────────────────────────────── */
+buildElig();
+buildDefaults();
+wireAll();
+setupNisabWatcher();
+autoFetchRates();
+</script>
+</body>
+</html>
